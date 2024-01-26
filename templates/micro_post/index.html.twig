@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Posts{% endblock %}
+
+{% block body %}
+
+    <div class="container m-10">
+        <div class="row p-5">
+        {% if posts|length > 0 %}
+            {% for post in posts %}
+                {{ include('micro_post/_post.html.twig', {post:post}) }}
+            {% endfor %}
+        {% else %}
+            <p>There is nothing here yet!</p>
+        {% endif %}
+    </div>
+    </div>
+
+
+{% endblock %}

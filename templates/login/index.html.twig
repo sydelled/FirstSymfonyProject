@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+{% block bread %}
+    -> Login
+{% endblock %}
+
+{% block body %}
+
+<div class="container container-sm p-10 mt-5 w-50">
+
+    <form action="{{ path('app_login') }}" method="POST">
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="text" name="_username" value="{{ lastUsername }}" class="input-group" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" name="_password" class="input-group"/>
+
+    </div>
+        <div class="mb-3">
+{#        hidden input field redirect to mirco-post#}
+        <input type="hidden" name="_target_path" value="/micro-post" class="input-group mb-3" />
+        <button type="submit" class="btn btn-success w-100">Login</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

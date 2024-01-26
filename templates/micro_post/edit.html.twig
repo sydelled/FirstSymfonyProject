@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Post
+{% endblock %}
+
+{% block bread %}
+    -> <a href="{{ path('app_micro_post_show', {post:post.id}) }}" class="link-light link-opacity-75-hover link-underline-opacity-0">Post</a> → Edit
+{% endblock %}
+
+{% block body %}
+
+    {{ include ('micro_post/form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Comment
+{% endblock %}
+
+{% block bread %}
+    -> <a href="{{ path('app_micro_post_show', {post:post.id}) }}" class="link-light link-opacity-75-hover link-underline-opacity-0">Post</a> → Edit
+{% endblock %}
+
+{% block body %}
+
+    {{ include ('micro_post/_post.html.twig', {post:post}) }}
+
+    <div class="w-25">
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <form>
+            <div>
+                {{ form_errors(form) }}
+                {{ form_widget(form._token) }}
+            </div>
+
+            {#        Text input field#}
+
+            <div class="mb-3">
+                <label for="{{ form.text.vars.id }}" class="form-label">
+                    {{ form_label(form.text, "Please enter your comment.") }}
+                </label>
+                <div class="input-group mb-3">
+                    {{ form_widget(form.text, {'attr': {'class': 'form-control', 'placeholder': 'Enter information', 'aria-describedby': form.text.vars.id~'HelpBlock'}}) }}
+                </div>
+                <div class="pt-2">{{ form_errors(form.text) }}</div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success w-100">Add Comment</button>
+            </div>
+        </form>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

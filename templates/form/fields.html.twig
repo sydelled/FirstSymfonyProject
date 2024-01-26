@@ -1,0 +1,10 @@
+{% block form_errors %}
+    {% if errors|length > 0 %}
+    <div class="alert alert-danger d-flex align-items-center fw-bold alert-sm" role="alert">
+{#        <div>#}
+            {% for error in errors %}
+                {{ error.message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

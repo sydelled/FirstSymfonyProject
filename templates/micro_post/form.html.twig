@@ -1,0 +1,35 @@
+<div class="container container-sm p-10 mt-4 mt-5 w-50">
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<form>
+    <div>
+        {{ form_errors(form) }}
+        {{ form_widget(form._token) }}
+    </div>
+{#        Title input field#}
+    <div class="mb-3">
+    <label for="{{ form.title.vars.id }}" class="form-label">
+        {{ form_label(form.title, "Please enter title.") }}
+    </label>
+    </div>
+    <div class="input-group mb-3">
+        {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Enter title', 'aria-describedby': form.title.vars.id~'HelpBlock'}}) }}
+    </div>
+    <div class="pt-2">{{ form_errors(form.title) }}</div>
+
+    {#        Text input field#}
+
+    <div class="mb-3">
+        <label for="{{ form.text.vars.id }}" class="form-label">
+            {{ form_label(form.text, "Please enter your information.") }}
+        </label>
+        <div class="input-group mb-3">
+            {{ form_widget(form.text, {'attr': {'class': 'form-control', 'placeholder': 'Enter information', 'aria-describedby': form.text.vars.id~'HelpBlock'}}) }}
+        </div>
+        <div class="pt-2">{{ form_errors(form.text) }}</div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success w-100">Save</button>
+    </div>
+</form>
+{{ form_end(form) }}
+</div>
