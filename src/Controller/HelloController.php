@@ -44,34 +44,6 @@ class HelloController extends AbstractController {
         CommentRepository $comments,
     ): Response {
 
-//        $post = $posts->find(16);
-//        $comment = $post->getComments()[0];
-//
-//        $post->removeComment($comment);
-//
-//        $entityManager->persist($post);
-//        $entityManager->flush();
-
-//         $post = new MicroPost();
-//         $post->setTitle('Hello');
-//         $post->setText('Hello');
-//         $post->setCreated(new DateTime());
-
-//        $post = $posts->find(9);
-//        $postText = $post->getText();
-//
-//        $comment = new Comment();
-//        $comment->setText($postText);
-//        $comment->setPost($post);
-//        //$post->addComment($comment);
-//        $entityManager->persist($comment);
-//        $entityManager->flush();
-
-//         $post = $posts->find(19);
-//         $comment = $post->getComments()[0];
-//         $comment->setPost(null);
-//         $comments->add($comment, true);
-
 
         return $this->render('hello/index.html.twig',
         [

@@ -11,18 +11,21 @@
 
     <form action="{{ path('app_login') }}" method="POST">
     <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="text" name="_username" value="{{ lastUsername }}" class="input-group" />
+        <label for="_username" class="form-label">Email:</label>
+        <input type="text" id="_username" name="_username" value="{{ lastUsername }}" class="form-control" />
     </div>
     <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" name="_password" class="input-group"/>
+        <label for="_password" class="form-label">Password:</label>
+        <input type="password" id="_username" name="_password" class="form-control"/>
 
     </div>
         <div class="mb-3">
 {#        hidden input field redirect to mirco-post#}
         <input type="hidden" name="_target_path" value="/micro-post" class="input-group mb-3" />
         <button type="submit" class="btn btn-success w-100">Login</button>
+        </div>
+        <div class="mt-2 text-center">
+            Don't have an account? <a href="{{ path('app_register') }}" class="d-block link-light link-opacity-75-hover link-underline-opacity-0 mb-2">Register here</a>
         </div>
     </form>
 </div>

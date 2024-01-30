@@ -15,9 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MicroPostController extends AbstractController
 {
+    //only authenticated users can view posts
+    //#[IsGranted(MicroPost::VIEW, 'posts')]
     #[Route('/micro-post', name: 'app_micro_post')]
     public function index(MicroPostRepository $posts): Response
     {
@@ -38,7 +41,7 @@ class MicroPostController extends AbstractController
             'post' => $post,
         ]);
     }
-
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/micro-post/add', name: 'app_micro_post_add', priority: 2)]
     public function add(
         EntityManagerInterface $entityManager,
@@ -46,6 +49,21 @@ class MicroPostController extends AbstractController
         MicroPostRepository $posts
     ): Response
     {
+        //NOTES
+
+        //isGranted returns a boolean value whether
+        //a user has a specific role or not
+        //$this->isGranted();
+        //deny access to non authenticated users
+        //$this->denyAccessUnlessGranted(
+            //when user is authenticated, they are given
+            //IS_AUTHENTICATED_FULLY role by symfony
+            //this will redirect users to the login
+            //page if they are not authenticated
+            //so they cannot just add a post
+           // 'IS_AUTHENTICATED_FULLY'
+        //);
+        //
 
         //create MicroPost instance
         $microPost= new MicroPost();
@@ -56,7 +74,7 @@ class MicroPostController extends AbstractController
             //if form has been submitted and validated
             //form gets data
             $post = $form->getData();
-            $post->setCreated(new DateTime());
+            $post->setAuthor($this->getUser());
 
             //adding post to repository
             //using entityManager to add data to entity
@@ -74,6 +92,7 @@ class MicroPostController extends AbstractController
         ]);
     }
 
+    #[IsGranted(MicroPost::EDIT, 'post')]
     #[Route('/micro-post/{post}/edit', name: 'app_micro_post_edit')]
     public function edit(
         MicroPost $post,
@@ -110,6 +129,7 @@ class MicroPostController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_COMMENTER")]
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
     public function addComment(
         MicroPost $post,
@@ -130,6 +150,7 @@ class MicroPostController extends AbstractController
             //form gets data
             $comment = $form->getData();
             $comment->setPost($post);
+            $comment->setAuthor($this->getUser());
 
             //adding post to repository
             //using entityManager to add data to entity

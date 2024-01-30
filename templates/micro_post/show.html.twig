@@ -16,12 +16,12 @@
 <div class="container w-50 m-5">
     <div class="row p-1">
         <div class="col text-white">
-            Author
+            {{ comment.author.email }}
         </div>
     </div>
     <div class="row text-start p-1">
         <div class="col text-secondary">
-            When
+            {{ post.created | date("M j, Y") }}
         </div>
     </div>
     <div class="row p-1">

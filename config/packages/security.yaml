@@ -1,3 +1,4 @@
+
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -34,6 +35,12 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_EDITOR]
+        #ROLE_EDITOR inherits the ROLE_COMMENTER
+        ROLE_EDITOR: [ROLE_COMMENTER]
+        #ROLE_COMMENTER inherits everything ROLE_USER
+        ROLE_COMMENTER: [ROLE_USER]
 
 when@test:
     security:

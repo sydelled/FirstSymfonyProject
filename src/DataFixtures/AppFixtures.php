@@ -56,7 +56,7 @@ class AppFixtures extends Fixture
 
        //the below code tells doctrine that you want
         //this microPost1 save
-        $manager->persist($$microPost1);
+        $manager->persist($microPost1);
 
         $microPost2 = new MicroPost();
         $microPost2 ->setTitle('Welcome to US!');
