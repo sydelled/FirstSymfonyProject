@@ -41,7 +41,7 @@ class MicroPostController extends AbstractController
             'post' => $post,
         ]);
     }
-    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('ROLE_WRITER')]
     #[Route('/micro-post/add', name: 'app_micro_post_add', priority: 2)]
     public function add(
         EntityManagerInterface $entityManager,
@@ -49,21 +49,6 @@ class MicroPostController extends AbstractController
         MicroPostRepository $posts
     ): Response
     {
-        //NOTES
-
-        //isGranted returns a boolean value whether
-        //a user has a specific role or not
-        //$this->isGranted();
-        //deny access to non authenticated users
-        //$this->denyAccessUnlessGranted(
-            //when user is authenticated, they are given
-            //IS_AUTHENTICATED_FULLY role by symfony
-            //this will redirect users to the login
-            //page if they are not authenticated
-            //so they cannot just add a post
-           // 'IS_AUTHENTICATED_FULLY'
-        //);
-        //
 
         //create MicroPost instance
         $microPost= new MicroPost();
@@ -205,3 +190,19 @@ class MicroPostController extends AbstractController
         //you can also use findBy which can find all records
         //with the same title
         //dd($posts->findOneBy(['title'=> 'Welcome to US!']));
+
+//NOTES
+
+//isGranted returns a boolean value whether
+//a user has a specific role or not
+//$this->isGranted();
+//deny access to non authenticated users
+//$this->denyAccessUnlessGranted(
+//when user is authenticated, they are given
+//IS_AUTHENTICATED_FULLY role by symfony
+//this will redirect users to the login
+//page if they are not authenticated
+//so they cannot just add a post
+// 'IS_AUTHENTICATED_FULLY'
+//);
+//
