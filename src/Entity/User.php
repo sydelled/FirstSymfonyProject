@@ -46,6 +46,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $bannedUntil = null;
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: UserProfile::class, cascade: ['persist', 'remove'])]
+    private ?UserProfile $userProfile;
 
     public function __construct()
     {
@@ -235,6 +237,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBannedUntil(?\DateTimeInterface $bannedUntil): static
     {
         $this->bannedUntil = $bannedUntil;
+
+        return $this;
+    }
+
+    public function getUserProfile(): ?UserProfile
+    {
+        return $this->userProfile;
+    }
+
+    public function setUserProfile(UserProfile $userProfile): self
+    {
+        // set the owning side of the relation if necessary
+        if ($userProfile->getUser() !== $this) {
+            $userProfile->setUser($this);
+        }
+
+        $this->userProfile = $userProfile;
 
         return $this;
     }
