@@ -54,7 +54,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-        ;
+        ->add('userProfile', UserProfileType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -37,7 +37,7 @@ class UserProfile
 
     #[ORM\OneToOne(inversedBy: 'userProfile', targetEntity: User::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private User $user;
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -127,6 +127,11 @@ class UserProfile
 
         return $this;
     }
+
+//    public function __construct(User $user)
+//    {
+//        $this->user = $user;
+//    }
 
     public function getUser(): ?User
     {

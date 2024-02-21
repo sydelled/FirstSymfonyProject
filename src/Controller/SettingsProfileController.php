@@ -7,15 +7,23 @@ use App\Entity\User;
 
 use App\Entity\UserProfile;
 use App\Form\UserProfileType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SettingsProfileController extends AbstractController
 {
     #[Route('/settings/profile', name: 'app_settings_profile')]
-    public function profile(Request $request): Response
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function profile(
+        Request $request,
+        UserRepository $users,
+        EntityManagerInterface $entityManager,
+    ): Response
     {
         /**@var User $user*/
         $user = $this->getUser();
@@ -30,12 +38,23 @@ class SettingsProfileController extends AbstractController
         $form = $this->createForm(
             UserProfileType::class, $userProfile
         );
-        $form->handleRequest($request);;
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $userProfile=$form->getData();
-            //save this
-            //add flash message
-            //redirect
+            $user->setUserProfile($userProfile);
+
+            $entityManager->persist($userProfile); // Persist the UserProfile
+            $entityManager->persist($user); // Persist the User (with the associated UserProfile)
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Your user profile settings were saved.'
+            );
+
+            return $this->redirectToRoute(
+                'app_settings_profile'
+            );
+
         }
         return $this->render('settings_profile/profile.html.twig', [
             'form' => $form->createView(),

@@ -32,15 +32,19 @@
             <div class="container text-body-tertiary text-end">
                 <div class="row">
                     <div class="col">
-                        {% if app.user %}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a href="{{ path('app_micro_post_add') }}" class="d-block link-light link-opacity-75-hover link-underline-opacity-0">Add New</a>
                             <a href="{{ path('app_logout') }}" class="d-block link-light link-opacity-75-hover link-underline-opacity-0">Logout</a>
+                            <a href="{{ path('app_settings_profile') }}" class="d-block link-light link-opacity-75-hover link-underline-opacity-0 mb-2">Profile Settings</a>
                         {% else %}
                             <a href="{{ path('app_login') }}" class="d-block link-light link-opacity-75-hover link-underline-opacity-0 mb-2">Login</a>
                             <a href="{{ path('app_register') }}" class="d-block link-light link-opacity-75-hover link-underline-opacity-0 mb-2">Register</a>
                         {% endif %}
                     </div>
                 </div>
+
+
+
             </div>
         </div>
 
