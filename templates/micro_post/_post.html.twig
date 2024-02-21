@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="text-white">
-        <a href="#" class="link-light link-opacity-75-hover link-underline-opacity-0">{{post.author.email}}</a>
+        <a href="{{ path('app_profile', {id: post.author.id}) }}" class="link-light link-opacity-75-hover link-underline-opacity-0">{{post.author.email}}</a>
     </div>
 
     <div class="flex m-2">
