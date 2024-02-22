@@ -14,9 +14,16 @@
     <div class="container">
         <div class="row row-col-2 p-2">
             <div class="col">
-                <a href="#" class="link-light link-opacity-75-hover link-underline-opacity-0">
+                {% if post.likedBy.contains(app.user) %}
+                <a href="{{ path('app_unlike', { id: post.id }) }}" class="link-light link-opacity-75-hover link-underline-opacity-0">
+                    <button class="btn btn-outline-success btn-sm">Dislike</button>
+                    <span class="badge bg-secondary m-1">{{ post.likedBy.count }}</span>
+                </a>
+                {% else %}
+                <a href="{{ path('app_like', { id: post.id }) }}" class="link-light link-opacity-75-hover link-underline-opacity-0">
                     <button class="btn btn-outline-success btn-sm">Like</button>
-                    <span class="badge bg-secondary m-1">0</span>
+                    <span class="badge bg-secondary m-1">{{ post.likedBy.count }}</span>
+                    {% endif %}
                 </a>
             </div>
         </div>
