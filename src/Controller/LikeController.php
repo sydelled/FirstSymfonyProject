@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\MicroPost;
 use App\Entity\User;
-use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
